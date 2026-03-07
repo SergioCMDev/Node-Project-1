@@ -108,8 +108,63 @@ function operar(valor1 : number | string, valor2 : number | string) : string {
                 return `Values ${valor1 + valor2}`;
     }
     return "ERROR";
-} 
+}
 
 console.log(`Operar 112 ${operar("1", "2")}`);
 
 console.log(`Operar 2 ${operar(2, 4)}`);
+
+type ValidatorFn = (validador : string) => boolean;
+
+
+function validarEmail(email :string) : boolean {
+    return email.length >= 8;
+}
+
+function validarTelefono(telefono :string) : boolean {
+    return telefono.length >= 2;
+}
+
+function validarContraseña(password :string) : boolean {
+    return password.length >= 8;
+}
+
+function validarCampo(valor : string, validadores : ValidatorFn[]) : string{
+   let res : string= "OK";
+   for(const validador of validadores){
+        if(validador(valor)){
+            continue;
+        }
+    switch(validador.name){
+        case "validarEmail":
+            console.log("Email invalido");
+            break;
+
+    }
+
+   }
+    return validadores.every(element =>
+        element(valor)) ? "OK" : "ERROR";
+}
+
+let res : string = validarCampo("pepe", [validarEmail, validarTelefono]);
+console.log(`Res ${res}`);
+
+function formatearError(error : string) : string;
+function formatearError(error : string[]) : string;
+
+function formatearError(error : string[] | string) : string{
+
+    if(typeof error === 'string'){
+        return error;
+    }
+
+    let errores : string = " " ;
+    error.forEach(element => {
+       errores = errores.concat(" ", element);
+    });
+
+    return errores;
+}
+
+console.log(`formatear ${formatearError(["EEE", "AAAA"])}`)
