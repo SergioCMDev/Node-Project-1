@@ -1,6 +1,6 @@
 import type{ Producto, IUsuario, Pedido, Administrador, Punto} from './interfaces.js';
 import { suma, validarCampo, formatearError, validarEmail, validarTelefono} from './functions.js';
-
+import {obtenerPropiedad} from './generics.js'
 
 let nombre : string = 'hola';
 
@@ -95,3 +95,9 @@ let res : string = validarCampo("pepe", [validarEmail, validarTelefono]);
 console.log(`Res ${res}`);
 
 console.log(`formatear ${formatearError(["EEE1d", "AAAA", "FFFF"])}`)
+
+
+const usuarioGenerics = {nombre: 'Pedro', edad: 23, activo: true};
+
+console.log(obtenerPropiedad(usuarioGenerics, "nombre"));
+console.log(obtenerPropiedad(usuarioGenerics, "edad"));
