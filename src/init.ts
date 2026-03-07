@@ -73,7 +73,7 @@ console.log(`Usuario ${usuario.correo}`);
 const admin1 : Administrador = {
     id : "1",
     permisos : ["1"],
-    correo : "email2",
+    correo : "email21",
     edad : 45
 }
 
