@@ -90,3 +90,26 @@ let id : ID = '111';
 console.log(`Id ${id}`);
 console.log(posicion);
 
+crearUsuario("pepe");
+function crearUsuario(nombre: string, ap? : string, edad : number = 12) : string{
+return "";
+}
+
+function operar(valor1 : number, valor2 : number) : string;
+
+function operar(valor1 : string, valor2 : string): string;
+
+function operar(valor1 : number | string, valor2 : number | string) : string {
+
+    if( typeof valor1 === 'string' && typeof valor2 === 'string'){
+
+        return `Values ${valor1.valueOf() + valor2.valueOf()}`;
+    }else if(typeof valor1 === 'number' && typeof valor2 === 'number'){
+                return `Values ${valor1 + valor2}`;
+    }
+    return "ERROR";
+} 
+
+console.log(`Operar 112 ${operar("1", "2")}`);
+
+console.log(`Operar 2 ${operar(2, 4)}`);
