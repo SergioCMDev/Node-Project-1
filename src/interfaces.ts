@@ -45,3 +45,13 @@ export interface Repository<T> {
 
 type productoSinData = Omit<IProducto, 'getData'>;
 let produc : productoSinData;
+
+
+export interface IPrestable {
+    prestar(usuarioId : string) : boolean;
+    devolver(): void
+}
+
+export interface ICRUD {
+    
+}

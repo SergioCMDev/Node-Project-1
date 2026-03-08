@@ -1,7 +1,7 @@
 import type{ IProducto, IUsuario, Pedido, Administrador, Punto} from './interfaces.js';
 import { suma, validarCampo, formatearError, validarEmail, validarTelefono} from './functions.js';
 import { obtenerPropiedad } from './generics.js'
-import { PiezasReparacion, RepositoryProductos } from './classes.js'
+import { PiezasReparacion, RepositoryProductos, Publicacion, CacheMap, LibroPrestable, Biblioteca } from './classes.js'
 
 let nombre : string = 'hola';
 
@@ -30,7 +30,10 @@ const producto1 : IProducto = {
         precio : 3,
         category : 3,
         stock : 5,
-        nombre : "pro"
+        nombre : "pro",
+        getData() : string{
+            return "";
+        }
 }
 
 const producto2 : IProducto = {
@@ -38,7 +41,10 @@ const producto2 : IProducto = {
         precio : 5,
         category : 1,
         stock : 10,
-        nombre : "pro2"
+        nombre : "pro2",
+        getData() : string{
+            return "";
+        }
 }
 
 
@@ -62,10 +68,17 @@ console.log(`Datos pedido ${pedido.total}`);
 
 
 const usuario : IUsuario = {
-    id : "2",
+    id : "1",
     correo : "email",
     edad : 21
 }
+
+const usuario2 : IUsuario = {
+    id : "1",
+    correo : "email2",
+    edad : 211
+}
+
 
 console.log(`Usuario ${usuario.correo}`);
 
@@ -111,3 +124,47 @@ let pieza1 = new PiezasReparacion("1", "rueda", 12, 345);
     products.forEach(element => {
         console.log(`Product ${element.getData()}`);
     });
+
+
+interface Configuration {
+    setTimeout : number;
+    maxItems : number;
+    nombre : string;
+}
+
+type partialConfiguration = Partial<Configuration>;
+function inicializarCache (config : partialConfiguration) : void{
+    config.maxItems = 1;
+    config.nombre = "pepe";
+    config.setTimeout = 1;
+}
+
+let config1 : partialConfiguration = {};
+inicializarCache(config1);
+
+console.log(`Config 1 ${config1.nombre}`)
+
+
+type CacheDeUsuarios = CacheMap<IUsuario>;
+
+// Y lo usas como cualquier tipo
+let cache: CacheDeUsuarios = new CacheMap<IUsuario>();
+
+cache.set("1", usuario);
+cache.set("2", usuario2);
+
+console.log(`${cache.get("1")?.correo}`);
+
+let publicacion1 = new Publicacion("libro1", "Autor1", 1203, 23.56);
+publicacion1.getPrecio();
+
+let libro1 = new LibroPrestable("1", 234, "tes", "OJO", "Autor", 1234, 23.4);
+let libro2 = new LibroPrestable("1", 2341, "tes1", "OJO2", "Autor", 1234, 23.4);
+
+let biblioteca = new Biblioteca();
+biblioteca.agregar(libro1);
+biblioteca.agregar(libro2);
+
+biblioteca.listarDisponibles().forEach( libro => {
+    console.log(`Libro ${libro.titulo}`);
+});
