@@ -1,6 +1,7 @@
-import type{ Producto, IUsuario, Pedido, Administrador, Punto} from './interfaces.js';
+import type{ IProducto, IUsuario, Pedido, Administrador, Punto} from './interfaces.js';
 import { suma, validarCampo, formatearError, validarEmail, validarTelefono} from './functions.js';
-import {obtenerPropiedad} from './generics.js'
+import { obtenerPropiedad } from './generics.js'
+import { PiezasReparacion, RepositoryProductos } from './classes.js'
 
 let nombre : string = 'hola';
 
@@ -24,7 +25,7 @@ console.log(suma(1,1));
 
 
 
-const producto1 : Producto = {
+const producto1 : IProducto = {
         id : "1",
         precio : 3,
         category : 3,
@@ -32,7 +33,7 @@ const producto1 : Producto = {
         nombre : "pro"
 }
 
-const producto2 : Producto = {
+const producto2 : IProducto = {
         id : "2",
         precio : 5,
         category : 1,
@@ -101,3 +102,12 @@ const usuarioGenerics = {nombre: 'Pedro', edad: 23, activo: true};
 
 console.log(obtenerPropiedad(usuarioGenerics, "nombre"));
 console.log(obtenerPropiedad(usuarioGenerics, "edad"));
+
+let repositoryProductos = new RepositoryProductos();
+let pieza1 = new PiezasReparacion("1", "rueda", 12, 345);
+    repositoryProductos.guardar(pieza1);
+    let products = repositoryProductos.Listar();
+
+    products.forEach(element => {
+        console.log(`Product ${element.getData()}`);
+    });

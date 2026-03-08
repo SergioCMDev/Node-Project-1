@@ -4,16 +4,17 @@ export interface IUsuario {
     edad? : number
 }
 
-export interface Producto {
+export interface IProducto {
     id : string,
     nombre : string,
     precio : number,
     category? : number,
     stock : number
+    getData() : string;
 }
 
 export interface Carrito {
-    items : Array<Producto>,
+    items : Array<IProducto>,
     total : number,
     calcularTotal() : number
 }
@@ -33,3 +34,14 @@ export type Punto = {
     x : number,
     y : number
 }
+
+
+export interface Repository<T> {
+    obtenerPorId(id : number) : T | undefined;
+    guardar(item : T) : void;
+    Listar() : T[];
+}
+
+
+type productoSinData = Omit<IProducto, 'getData'>;
+let produc : productoSinData;
